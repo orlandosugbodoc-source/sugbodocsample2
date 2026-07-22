@@ -2,7 +2,7 @@
 
 A modern, production-grade frontend system for the **SugboDoc Electronic Medical Record (EMR)** and Outpatient Clinic Management platform, engineered for Philippine healthcare workflows.
 
-Developed by **Orlando Fornolles Jr.** — Software Developer Intern at **SugboDoc Healthcare Systems** & 3rd-Year BS Information Technology Student at **Southwestern University PHINMA**.
+Developed by **Orlando Fornolles Jr.** — Software Developer Intern at **SugboDoc Healthcare Systems** & 3rd-Year BS Information Technology Student at **Southwestern University PHINMA**, built with **Google Antigravity AI**.
 
 ---
 
@@ -43,11 +43,12 @@ Developed by **Orlando Fornolles Jr.** — Software Developer Intern at **SugboD
 
 ---
 
-## Technology Stack & Architecture
+## Technology Stack & Development Tools
 
-- **Core**: React 19, TypeScript 5, Vite 6
+- **Core Framework**: React 19, TypeScript 5, Vite 6
 - **Styling**: Tailwind CSS v4, Vanilla CSS Design System Tokens
 - **Icons**: Lucide React, Custom Philippine Peso SVG Icons
+- **AI Pair Programmer & Coding Assistant**: Google Antigravity AI
 - **Utilities**: Class Variance Authority / clsx / tailwind-merge, date-fns
 
 ---
