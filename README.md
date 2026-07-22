@@ -1,6 +1,8 @@
 # SugboDoc EMR - Electronic Medical Record System
 
-A modern, production-grade frontend prototype for a cloud-based Electronic Medical Record (EMR) and Outpatient Clinic Management System, tailored for Philippine healthcare workflows.
+A modern, production-grade frontend system for the **SugboDoc Electronic Medical Record (EMR)** and Outpatient Clinic Management platform, engineered for Philippine healthcare workflows.
+
+Developed by **Orlando Fornolles** — Software Developer Intern at **SugboDoc Healthcare Systems** & 3rd-Year BS Information Technology Student at **Southwestern University PHINMA**.
 
 ---
 
@@ -8,18 +10,18 @@ A modern, production-grade frontend prototype for a cloud-based Electronic Medic
 
 ### July 22, 2026 — Design System, UI Polish, and Accessibility Enhancements
 
-- **Official SugboDoc Branding**: Integrated the official SugboDoc logo asset and updated the system's primary color palette to official **SugboDoc Royal Indigo (`#4454c3`)** and periwinkle subtles (`#eef2ff`).
-- **Eye-Comfort Light Theme**: Implemented an eye-protection light mode using a warm off-white slate background canvas (`#f4f6f9`), soft charcoal text (`#1e293b`), and pastel alert badges to reduce monitor blue-light glare during long clinical shifts.
-- **60-30-10 Color Architecture**: Applied strict 60-30-10 color rules (60% background canvas, 30% structural slate cards and typography, 10% focal indigo accents).
-- **Pill-Shaped Design System**: Converted all interactive buttons, command search triggers, role selectors, and tab controls to uniform pill-shaped boundaries (`rounded-full`).
-- **Patient & Staff Profile Avatars**: Created a reusable `<Avatar />` component supporting high-resolution profile photos with automatic uppercase name initials fallback (`JD`, `SA`, `MS`) for missing or broken image URLs.
-- **Philippine Currency Localization**: Replaced all generic dollar-sign receipt icons (`$`) with a custom SVG Philippine Peso symbol (`₱`) and Peso Receipt icon (`<PesoReceiptIcon />`).
+- **Official SugboDoc Branding**: Integrated official SugboDoc logo and updated color system to **SugboDoc Royal Indigo (`#4454c3`)** and periwinkle subtles (`#eef2ff`).
+- **Eye-Comfort Light Theme**: Implemented an eye-protection light mode using a warm off-white canvas (`#f4f6f9`), soft charcoal text (`#1e293b`), and pastel alert badges to reduce monitor glare.
+- **60-30-10 Color Architecture**: Enforced 60% canvas background, 30% structural slate typography/borders, and 10% focal indigo accents.
+- **Pill-Shaped Design System**: Standardized all buttons, search triggers, role selectors, and tab controls to uniform pill-shaped boundaries (`rounded-full`).
+- **Profile Photo Avatars**: Built `<Avatar />` component with automatic uppercase name initials fallback (`JD`, `SA`, `MS`) for missing image URLs.
+- **Philippine Peso Localization**: Designed custom Philippine Peso (`₱`) SVG icon and Peso Receipt icon (`<PesoReceiptIcon />`) replacing generic dollar signs.
 - **Critical Layout & Component Fixes**:
-  - **Queue Ticket Badges**: Resolved number text clipping by converting fixed 48px circles into auto-expanding pill containers (`px-4 py-2 rounded-full font-mono`).
-  - **Command Palette Focus Ring**: Eliminated unwanted blue box outlines around search inputs in modal headers.
-  - **Patient Context Bar**: Restructured patient information in Consultation Hub into a clean 2-row layout with inline demographic badges and a dedicated Chief Complaint block.
-  - **Toast Notifications**: Replaced transparent container background utility classes with a solid, 100% opaque dark slate background (`bg-slate-900 text-white shadow-2xl z-50`) to eliminate background text bleed-through.
-- **Responsive Mobile Drawer**: Verified mobile viewport drawer navigation (`-translate-x-full md:translate-x-0`) with slide-in hamburger menu toggle and backdrop blur overlay.
+  - **Queue Ticket Badges**: Converted fixed 48px circles into auto-expanding pill containers (`px-4 py-2 rounded-full font-mono`) to prevent number clipping.
+  - **Command Palette Focus Ring**: Eliminated blue box outlines around search inputs in modal headers.
+  - **Patient Context Bar**: Restructured Consultation Hub patient header into a clean 2-row layout with inline demographic badges and a dedicated Chief Complaint block.
+  - **Toast Notifications**: Applied solid 100% opaque dark slate background (`bg-slate-900 text-white shadow-2xl z-50`) to eliminate text bleed-through.
+- **Responsive Mobile Drawer**: Verified mobile drawer navigation (`-translate-x-full md:translate-x-0`) with slide-in hamburger menu toggle and backdrop blur overlay.
 
 ---
 
@@ -100,6 +102,6 @@ npm run preview
 
 ---
 
-## License
+## License & Ownership
 
-Educational Prototype - SugboDoc Healthcare Systems.
+Copyright © 2026 **SugboDoc Healthcare Systems**. All Rights Reserved.
