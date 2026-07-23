@@ -2,95 +2,132 @@ import React, { useState } from 'react';
 import { FileBadge, Printer } from 'lucide-react';
 import { useEMR } from '../../context/EMRContext';
 import { Button } from '../ui/Button';
-import { Card, CardContent } from '../ui/Card';
 
 export const CertificatesModule: React.FC = () => {
   const { activeEncounter, activePatient, currentUser } = useEMR();
   const [logoError, setLogoError] = useState(false);
 
+  const currentDateFormatted = new Date().toLocaleDateString('en-PH', { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  });
+
+  const patientName = activePatient 
+    ? `${activePatient.firstName} ${activePatient.lastName}` 
+    : 'Juan Dela Cruz';
+  
+  const patientAge = activePatient 
+    ? new Date().getFullYear() - new Date(activePatient.dob).getFullYear()
+    : 35;
+
+  const patientGender = activePatient?.gender || 'Male';
+  const patientAddress = activePatient?.address || 'Cebu City, Philippines';
+
   return (
     <div className="space-y-6">
+      {/* Top Bar Controls */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-base font-bold text-slate-900 tracking-tight flex items-center gap-2">
-            <FileBadge className="h-5 w-5 text-[#4454c3]" /> Medical Certificates & Legal Documents
+            <FileBadge className="h-5 w-5 text-[#4454c3]" /> Official Medical Certificate
           </h1>
-          <p className="text-xs text-slate-500">Official fit-to-work, medical leave, and physician referral documents</p>
+          <p className="text-xs text-slate-500">Standard Philippine Outpatient Medical Certificate & Fit-to-Work Clearance</p>
         </div>
-        <Button variant="primary" size="sm" icon={<Printer className="h-4 w-4" />} onClick={() => window.print()}>
-          Print Medical Certificate
+        <Button 
+          variant="primary" 
+          size="sm" 
+          icon={<Printer className="h-4 w-4" />} 
+          onClick={() => window.print()}
+        >
+          Print Official Document
         </Button>
       </div>
 
-      <Card className="max-w-2xl mx-auto border border-slate-200/90 shadow-sm rounded-xl">
-        <CardContent className="p-8 sm:p-10 space-y-6 bg-white text-xs select-none">
-          
-          {/* Clinic Letterhead Header with Official SugboDoc Logo */}
-          <div className="flex flex-col items-center justify-center border-b border-slate-200 pb-5 text-center space-y-2">
+      {/* Authentic Printable Document Container */}
+      <div className="max-w-2xl mx-auto bg-white border border-slate-300 rounded-sm p-8 sm:p-12 shadow-sm text-slate-900 font-serif leading-relaxed select-none">
+        
+        {/* Clinic Official Header */}
+        <div className="flex items-center justify-between border-b-2 border-slate-900 pb-4 mb-6">
+          <div className="flex items-center gap-4">
             {!logoError ? (
               <img 
                 src="https://sugbodoc.com/public/assets/images/brand/logo.png" 
-                alt="SugboDoc Official Logo" 
+                alt="SugboDoc Brand" 
                 onError={() => setLogoError(true)}
-                className="h-10 w-auto object-contain" 
+                className="h-12 w-auto object-contain" 
               />
             ) : (
-              <div className="flex items-center gap-2">
-                <div className="h-8 w-8 rounded-full bg-[#4454c3] flex items-center justify-center text-white font-bold text-sm font-sans shadow-2xs">
-                  S
-                </div>
-                <span className="font-bold text-lg tracking-tight text-slate-900">SUGBODOC CLINICAL CENTER</span>
+              <div className="h-10 w-10 bg-[#4454c3] text-white flex items-center justify-center font-sans font-bold text-xl rounded">
+                S
               </div>
             )}
             <div>
-              <p className="text-[11px] font-semibold text-slate-700">Department of Outpatient Medicine & Specialist Healthcare</p>
-              <p className="text-[10px] text-slate-500 font-mono">142 Mango Avenue, Cebu City, Philippines • Contact: (032) 412-9000</p>
+              <h2 className="font-bold text-sm uppercase tracking-wider text-slate-900 font-sans">SUGBODOC HEALTHCARE CLINIC</h2>
+              <p className="text-[11px] text-slate-600 font-sans">142 General Maxilom Ave (Mango Ave), Cebu City, 6000 Philippines</p>
+              <p className="text-[10px] text-slate-500 font-mono font-sans">Tel: (032) 412-9000 • Email: contact@sugbodoc.com</p>
             </div>
           </div>
 
-          <div className="text-center py-2">
-            <h1 className="text-sm font-bold uppercase tracking-widest text-slate-900 border-b-2 border-[#4454c3] inline-block pb-1">
-              MEDICAL CERTIFICATE
-            </h1>
+          <div className="text-right font-sans text-[11px]">
+            <div className="font-mono text-slate-500">Doc No: <strong className="text-slate-900">MC-2026-0842</strong></div>
+            <div className="text-slate-600 mt-1">Date: <strong>{currentDateFormatted}</strong></div>
           </div>
+        </div>
 
-          <div className="space-y-4 leading-relaxed text-slate-800">
-            <p className="text-right font-mono text-xs text-slate-600">
-              Date Issued: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-            </p>
+        {/* Title */}
+        <div className="text-center my-6">
+          <h1 className="text-base font-bold uppercase tracking-widest text-slate-900 border-b-2 border-slate-900 inline-block px-4 pb-0.5 font-sans">
+            MEDICAL CERTIFICATE
+          </h1>
+        </div>
 
-            <p className="font-semibold text-slate-900">
-              To Whom It May Concern:
-            </p>
+        {/* Document Body */}
+        <div className="space-y-5 text-xs text-slate-900 text-justify">
+          <p className="font-bold text-xs uppercase tracking-wider font-sans">
+            TO WHOM IT MAY CONCERN:
+          </p>
 
-            <p className="indent-6 text-slate-700">
-              This is to certify that <strong>{activePatient ? `${activePatient.firstName} ${activePatient.lastName}` : 'Juan Dela Cruz'}</strong>, 
-              {' '}{activePatient ? '35' : '47'} years of age, {activePatient?.gender || 'Male'}, residing at {activePatient?.address || 'Cebu City, Philippines'}, 
-              has been examined and clinically evaluated at SugboDoc Healthcare Center on this date.
-            </p>
+          <p className="indent-8 leading-6">
+            This is to certify that <strong>{patientName}</strong>, 
+            {' '}{patientAge} years of age, {patientGender}, residing at <strong>{patientAddress}</strong>, 
+            was physically examined and evaluated at this clinic on <strong>{currentDateFormatted}</strong>.
+          </p>
 
-            <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-lg space-y-1">
-              <span className="font-bold text-slate-900 block text-[11px] uppercase tracking-wider">Clinical Impression / Diagnosis:</span>
-              <p className="font-mono text-xs text-[#4454c3] font-semibold">
-                {activeEncounter?.diagnoses.map(d => `${d.code} - ${d.description}`).join('; ') || 'E11.9 - Type 2 diabetes mellitus; I10 - Essential hypertension'}
-              </p>
+          <div className="my-4 p-4 border border-slate-300 bg-slate-50/50 rounded-sm font-sans space-y-2">
+            <div className="text-[11px] font-bold text-slate-900 uppercase tracking-wider border-b border-slate-200 pb-1">
+              CLINICAL DIAGNOSIS / IMPRESSION:
             </div>
-
-            <p className="indent-6 text-slate-700">
-              <strong>Physician Recommendation:</strong> Patient is advised to observe <strong>3 days</strong> of strict medical rest, adequate hydration, and continuation of prescribed oral medications.
+            <p className="font-mono text-xs text-[#4454c3] font-bold">
+              {activeEncounter?.diagnoses.map(d => `${d.code} - ${d.description}`).join('; ') || 'E11.9 - Type 2 Diabetes Mellitus without complications; I10 - Essential Hypertension'}
             </p>
           </div>
 
-          {/* Attending Physician Signature Line */}
-          <div className="pt-12 flex justify-end">
-            <div className="text-center w-64 border-t border-slate-300 pt-2 space-y-0.5">
-              <p className="font-bold text-slate-900">{currentUser.name}</p>
-              <p className="text-[10px] text-slate-500 capitalize">{currentUser.title}</p>
-              <p className="text-[10px] font-mono text-slate-500">PRC License No.: {currentUser.licenseNo || 'PRC-0149204'}</p>
+          <p className="indent-8 leading-6">
+            <strong>REMARKS & RECOMMENDATIONS:</strong> Patient has undergone outpatient treatment and is advised to observe <strong>three (3) days of medical rest</strong> from duties, with regular intake of prescribed oral medications. Patient is cleared to resume regular work on <strong>{new Date(Date.now() + 3 * 86400000).toLocaleDateString('en-PH', { month: 'long', day: 'numeric', year: 'numeric' })}</strong>.
+          </p>
+        </div>
+
+        {/* Physician Official Signature Block */}
+        <div className="mt-14 pt-6 flex justify-end font-sans">
+          <div className="text-center w-64 space-y-1">
+            <div className="h-10 flex items-end justify-center">
+              <span className="font-serif italic text-slate-400 text-sm">Dr. {currentUser.name.split(' ')[0]}</span>
+            </div>
+            <div className="border-t border-slate-900 pt-1">
+              <p className="font-bold text-xs text-slate-900">{currentUser.name}</p>
+              <p className="text-[10px] text-slate-600 capitalize">{currentUser.title}</p>
+              <p className="text-[10px] font-mono text-slate-500">PRC Lic. No.: {currentUser.licenseNo || '0149204'}</p>
+              <p className="text-[10px] font-mono text-slate-500">PTR No.: PTR-2026-9918234</p>
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+
+        {/* Official Fine Print Disclaimer */}
+        <div className="mt-10 border-t border-slate-200 pt-3 text-center font-sans text-[9px] text-slate-400 uppercase tracking-wider">
+          NOTE: NOT VALID FOR MEDICO-LEGAL PURPOSES WITHOUT OFFICIAL CLINIC STAMP AND PHYSICIAN SIGNATURE.
+        </div>
+      </div>
     </div>
   );
 };
