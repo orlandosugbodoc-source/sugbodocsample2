@@ -247,7 +247,7 @@ export const CertificatesModule: React.FC = () => {
             <div className="pt-10 flex justify-end text-xs">
               <div className="text-center w-64 space-y-1">
                 <div className="h-10 flex items-end justify-center">
-                  <span className="font-serif italic text-slate-400 text-sm">Dr. {doctorName.split(' ')[0]}</span>
+                  <span className="font-serif italic text-slate-300 text-[11px]">Physician Signature</span>
                 </div>
                 <div className="border-t border-slate-300 pt-1.5">
                   <p className="font-bold text-slate-900">{doctorName}</p>
