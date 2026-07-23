@@ -126,10 +126,37 @@ export const EMRProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const setActivePatientId = (id: string | null) => {
     setActivePatientIdState(id);
     if (id) {
-      const existingEnc = encounters.find(e => e.patientId === id && e.status === 'in_consultation');
-      if (existingEnc) {
-        setActiveEncounterId(existingEnc.id);
+      const patientEnc = encounters.find(e => e.patientId === id && e.status === 'in_consultation') 
+        || encounters.find(e => e.patientId === id);
+      if (patientEnc) {
+        setActiveEncounterId(patientEnc.id);
+      } else {
+        const patient = patients.find(p => p.id === id);
+        if (patient) {
+          const newEnc: Encounter = {
+            id: `enc-${Date.now()}`,
+            patientId: patient.id,
+            patientMrn: patient.mrn,
+            patientName: `${patient.firstName} ${patient.lastName}`,
+            patientDob: patient.dob,
+            patientGender: patient.gender,
+            doctorId: currentUser.id,
+            doctorName: currentUser.name,
+            date: new Date().toISOString().split('T')[0],
+            timeSlot: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            type: 'walk_in',
+            status: 'in_consultation',
+            chiefComplaint: 'Routine Outpatient Consultation',
+            diagnoses: [],
+            prescriptions: [],
+            labOrders: [],
+          };
+          setEncounters(prev => [newEnc, ...prev]);
+          setActiveEncounterId(newEnc.id);
+        }
       }
+    } else {
+      setActiveEncounterId(null);
     }
   };
 

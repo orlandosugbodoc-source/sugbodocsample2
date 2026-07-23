@@ -23,7 +23,8 @@ export const QueueModule: React.FC = () => {
     setActivePatientId,
     setActiveModule,
     appointments,
-    updateAppointmentStatus
+    updateAppointmentStatus,
+    showToast
   } = useEMR();
 
   const [activeTab, setActiveTab] = useState<'queue' | 'appointments'>(
@@ -45,7 +46,7 @@ export const QueueModule: React.FC = () => {
   const handleIssueWalkIn = (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedPatientId) {
-      alert('Please select a registered patient');
+      showToast('Please select a registered patient to issue queue ticket', 'error');
       return;
     }
     addWalkInToQueue(selectedPatientId, chiefComplaint, category);
@@ -58,7 +59,7 @@ export const QueueModule: React.FC = () => {
       {/* Active Calling Announcement Header Banner */}
       <div className="p-4 rounded-lg bg-white border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="px-4 py-2 rounded-full bg-blue-600 text-white flex items-center justify-center font-mono font-bold text-sm shadow-2xs shrink-0 tracking-wide">
+          <div className="px-4 py-2 rounded-full bg-[#4454c3] text-white flex items-center justify-center font-mono font-bold text-sm shadow-2xs shrink-0 tracking-wide">
             {currentlyCalled ? currentlyCalled.queueNumber : '---'}
           </div>
           <div>
@@ -100,71 +101,69 @@ export const QueueModule: React.FC = () => {
               setActiveTab('queue');
               setActiveModule('queue');
             }}
-            className={`flex items-center gap-2 px-4 py-1.5 text-xs font-semibold rounded-full transition-all cursor-pointer whitespace-nowrap ${
-              activeTab === 'queue'
-                ? 'bg-white text-blue-600 shadow-2xs border border-slate-200'
-                : 'text-slate-500 hover:text-slate-900'
+            className={`px-4 py-1.5 text-xs font-semibold rounded-full transition-all cursor-pointer ${
+              activeTab === 'queue' ? 'bg-[#4454c3] text-white shadow-2xs' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            <Clock className="h-3.5 w-3.5 shrink-0" /> OPD Waiting Queue ({queueItems.length})
+            Live OPD Queue ({queueItems.filter(q => q.status !== 'completed').length})
           </button>
           <button
             onClick={() => {
               setActiveTab('appointments');
               setActiveModule('appointments');
             }}
-            className={`flex items-center gap-2 px-4 py-1.5 text-xs font-semibold rounded-full transition-all cursor-pointer whitespace-nowrap ${
-              activeTab === 'appointments'
-                ? 'bg-white text-blue-600 shadow-2xs border border-slate-200'
-                : 'text-slate-500 hover:text-slate-900'
+            className={`px-4 py-1.5 text-xs font-semibold rounded-full transition-all cursor-pointer ${
+              activeTab === 'appointments' ? 'bg-[#4454c3] text-white shadow-2xs' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            <Calendar className="h-3.5 w-3.5 shrink-0" /> Today's Scheduled Appointments ({appointments.length})
+            Scheduled Appointments ({appointments.length})
           </button>
         </div>
       </div>
 
-      {/* Tab 1: Live OPD Waiting Queue */}
+      {/* Queue View */}
       {activeTab === 'queue' && (
         <Card>
-          <CardHeader>
-            <CardTitle>Live OPD Queue Status & Caller</CardTitle>
+          <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="flex items-center gap-2">
+              <Clock className="h-4 w-4 text-[#4454c3]" /> Live OPD Outpatient Waiting Queue
+            </CardTitle>
           </CardHeader>
           <CardContent className="p-0">
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Queue #</TableHead>
-                  <TableHead>Patient Name & MRN</TableHead>
+                  <TableHead>Ticket #</TableHead>
+                  <TableHead>Check-in</TableHead>
+                  <TableHead>Patient Details</TableHead>
                   <TableHead>Category</TableHead>
-                  <TableHead>Chief Complaint</TableHead>
-                  <TableHead>Check-in Time</TableHead>
+                  <TableHead>Est. Wait</TableHead>
                   <TableHead>Status</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
+                  <TableHead className="text-right">Action</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {queueItems.map(item => (
                   <TableRow key={item.id}>
                     <TableCell className="whitespace-nowrap">
-                      <span className="inline-block px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 font-mono font-bold text-xs text-blue-600">
+                      <span className="px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-[#4454c3] font-mono font-bold text-xs inline-block">
                         {item.queueNumber}
                       </span>
                     </TableCell>
+                    <TableCell className="text-xs font-mono text-slate-500 whitespace-nowrap">
+                      {item.checkInTime}
+                    </TableCell>
                     <TableCell className="whitespace-nowrap">
-                      <div className="font-semibold text-slate-900">{item.patientName}</div>
-                      <div className="text-[11px] text-slate-500 font-mono">{item.patientMrn} • {item.patientGender}, {item.patientAge}y</div>
+                      <div className="font-bold text-slate-900">{item.patientName}</div>
+                      <div className="text-[11px] font-mono text-slate-500">{item.patientMrn} • {item.patientGender}, {item.patientAge}y</div>
                     </TableCell>
                     <TableCell className="whitespace-nowrap">
                       <Badge variant={item.category === 'Urgent' ? 'danger' : item.category === 'Senior/PWD' ? 'info' : 'neutral'} size="sm">
                         {item.category}
                       </Badge>
                     </TableCell>
-                    <TableCell className="text-xs text-slate-500 max-w-xs truncate">
-                      {item.chiefComplaint}
-                    </TableCell>
-                    <TableCell className="text-xs text-slate-500 font-mono whitespace-nowrap">
-                      {item.checkInTime} (~{item.estimatedWaitMins}m wait)
+                    <TableCell className="text-xs font-mono text-slate-600 whitespace-nowrap">
+                      ~{item.estimatedWaitMins} mins
                     </TableCell>
                     <TableCell className="whitespace-nowrap">
                       <Badge 
@@ -185,7 +184,7 @@ export const QueueModule: React.FC = () => {
                           size="sm"
                           onClick={() => advanceQueueItemStatus(item.id, 'called')}
                         >
-                          Call Patient
+                          Call Ticket
                         </Button>
                       )}
                       {item.status === 'called' && (
@@ -210,8 +209,11 @@ export const QueueModule: React.FC = () => {
                             setActiveModule('consultation');
                           }}
                         >
-                          Resume EMR
+                          Consult EMR
                         </Button>
+                      )}
+                      {item.status === 'completed' && (
+                        <Badge variant="success" size="sm">Done</Badge>
                       )}
                     </TableCell>
                   </TableRow>
@@ -222,46 +224,66 @@ export const QueueModule: React.FC = () => {
         </Card>
       )}
 
-      {/* Tab 2: Appointments Schedule */}
+      {/* Appointments View */}
       {activeTab === 'appointments' && (
         <Card>
           <CardHeader>
-            <CardTitle>Scheduled Appointments</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              <Calendar className="h-4 w-4 text-[#4454c3]" /> Scheduled Appointments Registry
+            </CardTitle>
           </CardHeader>
           <CardContent className="p-0">
             <Table>
               <TableHeader>
                 <TableRow>
                   <TableHead>Time Slot</TableHead>
-                  <TableHead>Patient Name</TableHead>
-                  <TableHead>Assigned Physician</TableHead>
-                  <TableHead>Visit Type</TableHead>
+                  <TableHead>Patient Name & MRN</TableHead>
+                  <TableHead>Consultation Specialty</TableHead>
+                  <TableHead>Assigned Doctor</TableHead>
                   <TableHead>Status</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
+                  <TableHead className="text-right">Action</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {appointments.map(apt => (
                   <TableRow key={apt.id}>
-                    <TableCell className="font-mono text-xs font-bold text-slate-900 whitespace-nowrap">{apt.timeSlot}</TableCell>
+                    <TableCell className="font-mono text-xs font-bold text-slate-800 whitespace-nowrap">
+                      {apt.date} • {apt.timeSlot}
+                    </TableCell>
                     <TableCell className="whitespace-nowrap">
                       <div className="font-semibold text-slate-900">{apt.patientName}</div>
                       <div className="text-[11px] font-mono text-slate-500">{apt.patientMrn}</div>
                     </TableCell>
-                    <TableCell className="text-xs text-slate-500 whitespace-nowrap">{apt.doctorName}</TableCell>
-                    <TableCell className="whitespace-nowrap"><Badge variant="outline" size="sm">{apt.type}</Badge></TableCell>
-                    <TableCell className="whitespace-nowrap"><Badge variant={apt.status === 'In Consultation' ? 'info' : apt.status === 'Completed' ? 'success' : 'neutral'} size="sm">{apt.status}</Badge></TableCell>
+                    <TableCell className="text-xs text-slate-700 whitespace-nowrap">
+                      {apt.specialty}
+                    </TableCell>
+                    <TableCell className="text-xs text-slate-700 whitespace-nowrap">
+                      {apt.doctorName}
+                    </TableCell>
+                    <TableCell className="whitespace-nowrap">
+                      <Badge 
+                        variant={
+                          apt.status === 'Completed' ? 'success' :
+                          apt.status === 'In Progress' ? 'primary' :
+                          apt.status === 'Cancelled' ? 'danger' : 'warning'
+                        }
+                        size="sm"
+                      >
+                        {apt.status}
+                      </Badge>
+                    </TableCell>
                     <TableCell className="text-right whitespace-nowrap">
                       {apt.status === 'Scheduled' && (
                         <Button
-                          variant="outline"
+                          variant="primary"
                           size="sm"
                           onClick={() => {
-                            updateAppointmentStatus(apt.id, 'Checked-in');
-                            addWalkInToQueue(apt.patientId, apt.reason, 'Regular');
+                            updateAppointmentStatus(apt.id, 'In Progress');
+                            setActivePatientId(apt.patientId);
+                            setActiveModule('consultation');
                           }}
                         >
-                          Check-in to Queue
+                          Check-In Patient
                         </Button>
                       )}
                     </TableCell>
@@ -273,48 +295,50 @@ export const QueueModule: React.FC = () => {
         </Card>
       )}
 
-      {/* Issue Walk-in Queue Ticket Dialog */}
+      {/* Walk-in Check-in Modal */}
       <Dialog
         isOpen={isWalkInOpen}
         onClose={() => setIsWalkInOpen(false)}
-        title="Check-in Walk-in Patient to OPD Queue"
-        description="Issue a sequential queue ticket and assign patient to active clinic queue"
+        title="Issue Walk-in OPD Queue Ticket"
+        description="Select registered patient to issue sequential ticket number."
         maxWidth="md"
       >
         <form onSubmit={handleIssueWalkIn} className="space-y-4 text-xs">
           <div>
-            <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Select Patient *</label>
+            <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">Select Registered Patient *</label>
             <select
-              className="w-full h-9 rounded-full border border-slate-200 bg-white px-4 text-xs text-slate-900"
+              className="w-full h-9 rounded-full border border-slate-200 bg-white px-3 text-xs text-slate-900"
               value={selectedPatientId}
               onChange={e => setSelectedPatientId(e.target.value)}
               required
             >
-              <option value="">-- Choose Registered Patient --</option>
+              <option value="">-- Choose Patient from Registry --</option>
               {patients.map(p => (
-                <option key={p.id} value={p.id}>{p.lastName}, {p.firstName} ({p.mrn})</option>
+                <option key={p.id} value={p.id}>
+                  {p.lastName}, {p.firstName} ({p.mrn}) — {p.gender}, {new Date().getFullYear() - new Date(p.dob).getFullYear()}y
+                </option>
               ))}
             </select>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Priority Category *</label>
+            <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">Triage Priority Category</label>
             <select
-              className="w-full h-9 rounded-full border border-slate-200 bg-white px-4 text-xs text-slate-900"
+              className="w-full h-9 rounded-full border border-slate-200 bg-white px-3 text-xs text-slate-900"
               value={category}
               onChange={e => setCategory(e.target.value as any)}
             >
               <option value="Regular">Regular Queue</option>
               <option value="Senior/PWD">Senior Citizen / PWD Priority</option>
-              <option value="Urgent">Urgent / Triage Priority</option>
+              <option value="Urgent">Urgent / High Priority</option>
             </select>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Chief Complaint / Reason for Visit</label>
+            <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">Chief Complaint Summary</label>
             <textarea
-              className="w-full h-20 rounded-lg border border-slate-200 bg-white p-3 text-xs text-slate-900"
-              placeholder="e.g. Fever, cough, follow-up blood test result..."
+              className="w-full h-20 p-2.5 text-xs text-slate-900 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4454c3]"
+              placeholder="e.g. High fever for 3 days, dry cough..."
               value={chiefComplaint}
               onChange={e => setChiefComplaint(e.target.value)}
             />
