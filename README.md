@@ -8,15 +8,15 @@ Developed by **Orlando Fornolles Jr.** — Software Developer Intern at **SugboD
 
 ## Task Update & Changelog
 
-### July 23, 2026 — Enterprise Refinements, Real-Time Editing & Non-Vibe-Coded Design System
+### July 23, 2026 — Enterprise Refinements, Real-Time Editing & Hand-Crafted Design System
 
 - **Website Title Alignment**: Set official site title to `SugboDoc Sample` in `index.html` and header breadcrumb navigation.
 - **State Synchronization & Deep Bug Audit**: Fixed `setActivePatientId(id)` in `EMRContext.tsx` to maintain 100% active patient & encounter synchronization across all modules, preventing clinical notes from mapping to incorrect patient records.
 - **Smooth View Transitions & Scroll Restoration**: Integrated dynamic key transitions (`animate-in fade-in slide-in-from-bottom-1 duration-150 ease-out`) in `App.tsx` and automated top scroll restoration (`scrollTo({ top: 0 })`) upon module switches.
 - **Official Stethoscope "S" Emblem**: Rendered the official SugboDoc stethoscope "S" emblem in collapsed sidebar mode with exact 17px cropping to isolate the mark cleanly.
 - **Dynamic Role-Based Access Control (RBAC)**: Exported `roleAllowedModules` in `EMRContext.tsx` to dynamically filter sidebar navigation links for 6 user personas (`doctor`, `receptionist`, `nurse`, `lab_staff`, `cashier`, `admin`).
-- **Minimalist Login & Sign Out Modal**: Implemented a centered Demo Login Screen with top SugboDoc logo placement, alongside a clean, non-vibe-coded Sign Out confirmation modal.
-- **Non-Vibe-Coded Design System Overhaul**:
+- **Minimalist Login & Sign Out Modal**: Implemented a centered Demo Login Screen with top SugboDoc logo placement, alongside a clean Sign Out confirmation modal.
+- **Hand-Crafted Enterprise Design System Overhaul**:
   - Stripped background tint fills (`bg-blue-50`, `bg-rose-50`, `bg-slate-100`) from pills, tags, badges, and patient headers in favor of crisp flat white containers (`bg-white`) with 1px outline borders.
   - Replaced raw browser webkit date picker icons (`📅`) with custom right-aligned Lucide `<Calendar />` icons across date inputs.
   - Standardized component geometry to clean, modern `rounded-lg` borders and 2px focus rings (`#4454c3`).
