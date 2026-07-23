@@ -18,10 +18,10 @@ export const LoginScreen: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#f4f6f9] flex flex-col items-center justify-center p-4 select-none">
       {/* Outer Branding Container */}
-      <div className="w-full max-w-sm space-y-6 animate-in fade-in zoom-in-95 duration-200">
+      <div className="w-full max-w-sm space-y-5 animate-in fade-in zoom-in-95 duration-200">
         
         {/* Official SugboDoc Logo Outside at the Top Center of Modal */}
-        <div className="flex flex-col items-center justify-center space-y-2">
+        <div className="flex justify-center">
           {!logoError ? (
             <img 
               src="https://sugbodoc.com/public/assets/images/brand/logo.png" 
@@ -34,17 +34,15 @@ export const LoginScreen: React.FC = () => {
               <div className="h-10 w-10 rounded-full bg-[#4454c3] flex items-center justify-center text-white font-bold text-lg font-sans shadow-md">
                 S
               </div>
-              <span className="font-bold text-xl tracking-tight text-slate-900">SUGBODOC EMR</span>
+              <span className="font-bold text-xl tracking-tight text-slate-900">SUGBODOC</span>
             </div>
           )}
-          <p className="text-xs font-medium text-slate-500">Outpatient Electronic Medical Record System</p>
         </div>
 
         {/* Minimalist Centered Login Card */}
         <div className="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 shadow-sm space-y-5">
-          <div className="text-center space-y-1">
+          <div className="text-center">
             <h2 className="text-base font-bold text-slate-900">Sign in to your account</h2>
-            <p className="text-xs text-slate-500">Enter your credentials to access the EMR system</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -74,14 +72,9 @@ export const LoginScreen: React.FC = () => {
               className="w-full h-10 text-xs font-semibold tracking-wide justify-center shadow-2xs"
               icon={<ArrowRight className="h-4 w-4" />}
             >
-              Sign In to SugboDoc EMR
+              Sign In
             </Button>
           </form>
-        </div>
-
-        {/* Footer Note */}
-        <div className="text-center text-[11px] text-slate-400">
-          SugboDoc Healthcare Systems • Secure Outpatient Portal
         </div>
       </div>
     </div>
