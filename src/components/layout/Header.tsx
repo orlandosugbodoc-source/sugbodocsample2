@@ -48,7 +48,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMobileMenu }) => {
           <Menu className="h-5 w-5" />
         </button>
 
-        <span className="text-slate-900 font-semibold whitespace-nowrap hidden sm:inline">SugboDoc</span>
+        <span className="text-slate-900 font-semibold whitespace-nowrap hidden sm:inline">SugboDoc Sample</span>
         <ChevronRight className="h-3.5 w-3.5 text-slate-400 shrink-0 hidden sm:inline" />
         <span className="text-[#4454c3] font-semibold whitespace-nowrap truncate max-w-[140px] sm:max-w-none">
           {moduleTitles[activeModule] || 'EMR System'}
