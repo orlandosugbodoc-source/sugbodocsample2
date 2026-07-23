@@ -20,6 +20,8 @@ import {
 import { useEMR, roleAllowedModules } from '../../context/EMRContext';
 import { cn } from '../../utils/cn';
 import { Avatar } from '../ui/Avatar';
+import { Button } from '../ui/Button';
+import { Dialog } from '../ui/Dialog';
 import { PesoReceiptIcon } from '../ui/PesoIcon';
 
 interface SidebarProps {
@@ -37,6 +39,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const { activeModule, setActiveModule, currentUser, logout } = useEMR();
   const [logoError, setLogoError] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   const allNavigationItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -57,6 +60,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
   // Dynamic Role-Based Access Control (RBAC) Module Filter
   const allowedModuleIds = roleAllowedModules[currentUser.role] || roleAllowedModules.admin;
   const navigationItems = allNavigationItems.filter(item => allowedModuleIds.includes(item.id));
+
+  const handleConfirmLogout = () => {
+    setIsLogoutModalOpen(false);
+    logout();
+  };
 
   return (
     <>
@@ -181,15 +189,48 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </div>
             </div>
             <button
-              onClick={logout}
+              onClick={() => setIsLogoutModalOpen(true)}
               className="p-1.5 rounded-full text-slate-400 hover:bg-slate-200/60 hover:text-slate-700 transition-colors cursor-pointer shrink-0"
-              title="Sign Out to Demo Login Screen"
+              title="Sign Out"
             >
               <LogOut className="h-4 w-4" />
             </button>
           </div>
         )}
       </aside>
+
+      {/* Sign Out Confirmation Modal */}
+      <Dialog
+        isOpen={isLogoutModalOpen}
+        onClose={() => setIsLogoutModalOpen(false)}
+        title="Sign Out Confirmation"
+        description="Are you sure you want to end your active SugboDoc session?"
+        maxWidth="sm"
+      >
+        <div className="space-y-4 pt-2">
+          <p className="text-xs text-slate-600">
+            Any unsaved consultation notes or draft prescriptions will remain accessible in your local active session upon signing back in.
+          </p>
+
+          <div className="flex justify-end gap-2 pt-3 border-t border-slate-100">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setIsLogoutModalOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              size="sm"
+              icon={<LogOut className="h-3.5 w-3.5" />}
+              onClick={handleConfirmLogout}
+            >
+              Sign Out
+            </Button>
+          </div>
+        </div>
+      </Dialog>
     </>
   );
 };
