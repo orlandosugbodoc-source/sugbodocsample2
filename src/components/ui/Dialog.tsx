@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { X } from 'lucide-react';
 import { cn } from '../../utils/cn';
-import { Button } from './Button';
 
 export interface DialogProps {
   isOpen: boolean;
@@ -46,7 +45,7 @@ export const Dialog: React.FC<DialogProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-2xs p-4 animate-in fade-in duration-150 select-none">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-2xs p-4 animate-in fade-in duration-150 select-none">
       <div
         className="fixed inset-0"
         onClick={onClose}
@@ -54,27 +53,25 @@ export const Dialog: React.FC<DialogProps> = ({
       />
       <div
         className={cn(
-          'relative w-full bg-white rounded-lg border border-slate-200 shadow-xl z-10 flex flex-col max-h-[90vh] overflow-hidden animate-in zoom-in-95 duration-150',
+          'relative w-full bg-white rounded-xl border border-slate-200/90 shadow-lg z-10 flex flex-col max-h-[90vh] overflow-hidden animate-in zoom-in-95 duration-150',
           widthClasses[maxWidth]
         )}
         role="dialog"
         aria-modal="true"
       >
-        <div className="flex items-center justify-between p-4 border-b border-slate-200 bg-slate-50/60">
-          <div>
+        <div className="flex items-start justify-between p-4 sm:p-5 border-b border-slate-100 bg-slate-50/40">
+          <div className="space-y-0.5">
             <h2 className="text-sm font-bold text-slate-900 tracking-tight">{title}</h2>
-            {description && <p className="text-xs text-slate-500 mt-0.5">{description}</p>}
+            {description && <p className="text-xs text-slate-500">{description}</p>}
           </div>
-          <Button
-            variant="ghost"
-            size="icon"
+          <button
             onClick={onClose}
-            className="h-8 w-8 text-slate-500 hover:text-slate-900"
+            className="p-1 rounded-md text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer shrink-0 ml-4"
           >
             <X className="h-4 w-4" />
-          </Button>
+          </button>
         </div>
-        <div className="p-5 overflow-y-auto space-y-4">
+        <div className="p-4 sm:p-5 overflow-y-auto space-y-4">
           {children}
         </div>
       </div>
