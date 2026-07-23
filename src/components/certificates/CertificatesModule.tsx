@@ -11,6 +11,7 @@ export const CertificatesModule: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   // Editable Certificate Fields (Initialized from Active Patient & Encounter)
+  const [certificateDate, setCertificateDate] = useState(new Date().toISOString().split('T')[0]);
   const [patientName, setPatientName] = useState(
     activePatient ? `${activePatient.firstName} ${activePatient.lastName}` : 'Juan Dela Cruz'
   );
@@ -33,13 +34,14 @@ export const CertificatesModule: React.FC = () => {
   const [licenseNo, setLicenseNo] = useState(currentUser.licenseNo || '0149204');
   const [ptrNo, setPtrNo] = useState('PTR-2026-9918234');
 
-  const currentDateFormatted = new Date().toLocaleDateString('en-US', { 
+  // Format Dates Dynamically
+  const formattedIssueDate = new Date(certificateDate).toLocaleDateString('en-US', { 
     year: 'numeric', 
     month: 'long', 
     day: 'numeric' 
   });
 
-  const clearanceDateFormatted = new Date(Date.now() + restDays * 86400000).toLocaleDateString('en-US', { 
+  const clearanceDateFormatted = new Date(new Date(certificateDate).getTime() + restDays * 86400000).toLocaleDateString('en-US', { 
     month: 'long', 
     day: 'numeric', 
     year: 'numeric' 
@@ -88,6 +90,13 @@ export const CertificatesModule: React.FC = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3 text-xs">
+                <Input
+                  label="Certificate Issue Date"
+                  type="date"
+                  value={certificateDate}
+                  onChange={e => setCertificateDate(e.target.value)}
+                />
+
                 <Input
                   label="Patient Full Name"
                   value={patientName}
@@ -205,7 +214,7 @@ export const CertificatesModule: React.FC = () => {
               </div>
               <div className="text-right text-[11px] font-mono text-slate-500 space-y-0.5">
                 <div>Ref No: <strong className="text-slate-800">MC-2026-0842</strong></div>
-                <div>Date: <strong className="text-slate-800">{currentDateFormatted}</strong></div>
+                <div>Date: <strong className="text-slate-800">{formattedIssueDate}</strong></div>
               </div>
             </div>
 
@@ -218,7 +227,7 @@ export const CertificatesModule: React.FC = () => {
               <p>
                 This is to certify that <strong>{patientName}</strong>, 
                 {' '}{patientAge} years of age, {patientGender}, residing at <strong>{patientAddress}</strong>, 
-                was clinically examined and evaluated at SugboDoc Healthcare Center on <strong>{currentDateFormatted}</strong>.
+                was clinically examined and evaluated at SugboDoc Healthcare Center on <strong>{formattedIssueDate}</strong>.
               </p>
 
               {/* Diagnosis Block */}
