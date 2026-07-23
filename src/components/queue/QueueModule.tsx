@@ -146,7 +146,7 @@ export const QueueModule: React.FC = () => {
                 {queueItems.map(item => (
                   <TableRow key={item.id}>
                     <TableCell className="whitespace-nowrap">
-                      <span className="px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-[#4454c3] font-mono font-bold text-xs inline-block">
+                      <span className="px-2.5 py-1 rounded-md bg-white border border-slate-200 text-[#4454c3] font-mono font-bold text-xs inline-block">
                         {item.queueNumber}
                       </span>
                     </TableCell>

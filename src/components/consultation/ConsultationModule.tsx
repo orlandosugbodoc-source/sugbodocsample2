@@ -170,14 +170,14 @@ export const ConsultationModule: React.FC = () => {
               <h2 className="font-bold text-base text-slate-900 tracking-tight">
                 {activePatient.firstName} {activePatient.lastName}
               </h2>
-              <span className="font-mono text-xs text-blue-600 font-bold bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">
+              <span className="font-mono text-xs text-[#4454c3] font-bold bg-white px-2 py-0.5 rounded-md border border-slate-200">
                 {activePatient.mrn}
               </span>
               <Badge variant="outline" size="sm">
                 {activePatient.gender}, {calculateAge(activePatient.dob)} yrs
               </Badge>
               {activePatient.bloodType && (
-                <Badge variant="neutral" size="sm" className="font-mono">
+                <Badge variant="outline" size="sm" className="font-mono">
                   Blood: {activePatient.bloodType}
                 </Badge>
               )}
@@ -194,11 +194,11 @@ export const ConsultationModule: React.FC = () => {
         {/* Right Side: Allergies Warning Pill & Action CTAs */}
         <div className="flex items-center gap-2.5 shrink-0 flex-wrap">
           {activePatient.allergies.length > 0 && (
-            <div className="flex items-center gap-2 px-3.5 py-1.5 bg-red-50 border border-red-200 rounded-full text-xs text-red-700 font-medium shrink-0">
-              <ShieldAlert className="h-4 w-4 text-red-600 shrink-0" />
+            <div className="flex items-center gap-1.5 px-3 py-1 bg-white border border-rose-300 rounded-md text-xs text-rose-700 font-medium shrink-0">
+              <ShieldAlert className="h-3.5 w-3.5 text-rose-600 shrink-0" />
               <span className="whitespace-nowrap">
-                <strong className="text-red-700 font-bold uppercase tracking-wider text-[10px] mr-1">Allergies:</strong>
-                <span className="font-semibold text-red-900">{activePatient.allergies.map(a => a.allergen).join(', ')}</span>
+                <strong className="text-rose-700 font-bold uppercase tracking-wider text-[10px] mr-1">Allergies:</strong>
+                <span className="font-semibold text-rose-900">{activePatient.allergies.map(a => a.allergen).join(', ')}</span>
               </span>
             </div>
           )}
@@ -284,7 +284,7 @@ export const ConsultationModule: React.FC = () => {
                 </div>
                 <div>
                   <label className="text-[10px] font-bold text-slate-500 uppercase">BMI (kg/m²)</label>
-                  <div className="h-8 px-2.5 rounded-full border border-slate-200 bg-slate-50 flex items-center font-mono font-bold text-xs text-blue-600">
+                  <div className="h-8 px-3 rounded-md border border-slate-200 bg-white flex items-center font-mono font-bold text-xs text-[#4454c3]">
                     {bmi}
                   </div>
                 </div>
