@@ -18,16 +18,16 @@ export const LoginScreen: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#f4f6f9] flex flex-col items-center justify-center p-4 select-none">
       {/* Outer Branding Container */}
-      <div className="w-full max-w-sm space-y-5 animate-in fade-in zoom-in-95 duration-200">
+      <div className="w-full max-w-sm animate-in fade-in zoom-in-95 duration-200">
         
-        {/* Official SugboDoc Logo Outside at the Top Center of Modal */}
-        <div className="flex justify-center">
+        {/* Official SugboDoc Logo Outside at the Top Center (Positioned Higher) */}
+        <div className="flex justify-center mb-8">
           {!logoError ? (
             <img 
               src="https://sugbodoc.com/public/assets/images/brand/logo.png" 
               alt="SugboDoc Official Logo" 
               onError={() => setLogoError(true)}
-              className="h-10 w-auto object-contain drop-shadow-2xs" 
+              className="h-11 w-auto object-contain drop-shadow-2xs" 
             />
           ) : (
             <div className="flex items-center gap-2">
