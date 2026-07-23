@@ -85,6 +85,15 @@ interface EMRContextType {
 
 const EMRContext = createContext<EMRContextType | undefined>(undefined);
 
+export const roleAllowedModules: Record<UserRole, string[]> = {
+  doctor: ['dashboard', 'patients', 'appointments', 'queue', 'consultation', 'soap', 'prescriptions', 'laboratory', 'certificates', 'reports'],
+  receptionist: ['dashboard', 'patients', 'appointments', 'queue', 'certificates'],
+  nurse: ['dashboard', 'patients', 'appointments', 'queue', 'consultation', 'soap', 'prescriptions', 'laboratory'],
+  lab_staff: ['dashboard', 'patients', 'laboratory', 'reports'],
+  cashier: ['dashboard', 'patients', 'billing', 'reports'],
+  admin: ['dashboard', 'patients', 'appointments', 'queue', 'consultation', 'soap', 'prescriptions', 'laboratory', 'certificates', 'billing', 'reports', 'admin', 'settings'],
+};
+
 export const EMRProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<User>(MOCK_CURRENT_USER);
   const [staffList] = useState<User[]>(MOCK_STAFF);
@@ -117,7 +126,14 @@ export const EMRProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       title: `${role.toUpperCase()} User`,
     };
     setCurrentUser(matchingStaff);
-    showToast(`Switched active role to ${role.toUpperCase()} (${matchingStaff.name})`, 'info');
+
+    // Auto fallback activeModule if not permitted for new role
+    const allowed = roleAllowedModules[role] || roleAllowedModules.admin;
+    if (!allowed.includes(activeModule)) {
+      setActiveModule('dashboard');
+    }
+
+    showToast(`Switched active persona to ${role.toUpperCase()} (${matchingStaff.name})`, 'info');
   };
 
   const activePatient = patients.find(p => p.id === activePatientId) || null;

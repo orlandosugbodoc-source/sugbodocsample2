@@ -14,10 +14,9 @@ import {
   Settings,
   ChevronLeft,
   ChevronRight,
-  Activity,
   X
 } from 'lucide-react';
-import { useEMR } from '../../context/EMRContext';
+import { useEMR, roleAllowedModules } from '../../context/EMRContext';
 import { cn } from '../../utils/cn';
 import { Avatar } from '../ui/Avatar';
 import { PesoReceiptIcon } from '../ui/PesoIcon';
@@ -38,7 +37,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const { activeModule, setActiveModule, currentUser } = useEMR();
   const [logoError, setLogoError] = useState(false);
 
-  const navigationItems = [
+  const allNavigationItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'patients', label: 'Patient Registry', icon: Users },
     { id: 'appointments', label: 'Appointments Calendar', icon: CalendarDays },
@@ -53,6 +52,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: 'admin', label: 'System Admin', icon: ShieldAlert },
     { id: 'settings', label: 'Settings', icon: Settings },
   ];
+
+  // Dynamic Role-Based Access Control (RBAC) Module Filter
+  const allowedModuleIds = roleAllowedModules[currentUser.role] || roleAllowedModules.admin;
+  const navigationItems = allNavigationItems.filter(item => allowedModuleIds.includes(item.id));
 
   return (
     <>
