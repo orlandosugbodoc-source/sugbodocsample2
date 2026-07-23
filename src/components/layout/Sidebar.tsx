@@ -203,32 +203,26 @@ export const Sidebar: React.FC<SidebarProps> = ({
       <Dialog
         isOpen={isLogoutModalOpen}
         onClose={() => setIsLogoutModalOpen(false)}
-        title="Sign Out Confirmation"
-        description="Are you sure you want to end your active SugboDoc session?"
+        title="Sign Out"
+        description="Do you want to continue to sign out for now?"
         maxWidth="sm"
       >
-        <div className="space-y-4 pt-2">
-          <p className="text-xs text-slate-600">
-            Any unsaved consultation notes or draft prescriptions will remain accessible in your local active session upon signing back in.
-          </p>
-
-          <div className="flex justify-end gap-2 pt-3 border-t border-slate-100">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setIsLogoutModalOpen(false)}
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="destructive"
-              size="sm"
-              icon={<LogOut className="h-3.5 w-3.5" />}
-              onClick={handleConfirmLogout}
-            >
-              Sign Out
-            </Button>
-          </div>
+        <div className="flex justify-end gap-2 pt-4 border-t border-slate-100">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setIsLogoutModalOpen(false)}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="destructive"
+            size="sm"
+            icon={<LogOut className="h-3.5 w-3.5" />}
+            onClick={handleConfirmLogout}
+          >
+            Sign Out
+          </Button>
         </div>
       </Dialog>
     </>
