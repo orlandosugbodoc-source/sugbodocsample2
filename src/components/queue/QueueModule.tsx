@@ -238,7 +238,7 @@ export const QueueModule: React.FC = () => {
                 <TableRow>
                   <TableHead>Time Slot</TableHead>
                   <TableHead>Patient Name & MRN</TableHead>
-                  <TableHead>Consultation Specialty</TableHead>
+                  <TableHead>Consultation Type</TableHead>
                   <TableHead>Assigned Doctor</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead className="text-right">Action</TableHead>
@@ -254,8 +254,8 @@ export const QueueModule: React.FC = () => {
                       <div className="font-semibold text-slate-900">{apt.patientName}</div>
                       <div className="text-[11px] font-mono text-slate-500">{apt.patientMrn}</div>
                     </TableCell>
-                    <TableCell className="text-xs text-slate-700 whitespace-nowrap">
-                      {apt.specialty}
+                    <TableCell className="text-xs text-slate-700 whitespace-nowrap capitalize">
+                      {apt.type.replace('_', ' ')}
                     </TableCell>
                     <TableCell className="text-xs text-slate-700 whitespace-nowrap">
                       {apt.doctorName}
@@ -264,7 +264,7 @@ export const QueueModule: React.FC = () => {
                       <Badge 
                         variant={
                           apt.status === 'Completed' ? 'success' :
-                          apt.status === 'In Progress' ? 'primary' :
+                          apt.status === 'In Consultation' ? 'primary' :
                           apt.status === 'Cancelled' ? 'danger' : 'warning'
                         }
                         size="sm"
@@ -278,7 +278,7 @@ export const QueueModule: React.FC = () => {
                           variant="primary"
                           size="sm"
                           onClick={() => {
-                            updateAppointmentStatus(apt.id, 'In Progress');
+                            updateAppointmentStatus(apt.id, 'In Consultation');
                             setActivePatientId(apt.patientId);
                             setActiveModule('consultation');
                           }}

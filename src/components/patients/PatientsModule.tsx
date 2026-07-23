@@ -6,14 +6,10 @@ import {
   Eye, 
   Stethoscope, 
   ShieldAlert, 
-  FileText, 
-  HeartPulse, 
-  Pill,
-  Calendar,
   Filter
 } from 'lucide-react';
 import { useEMR } from '../../context/EMRContext';
-import { Patient } from '../../types';
+import { Patient, BloodType } from '../../types';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
 import { Card, CardHeader, CardTitle, CardContent } from '../ui/Card';
@@ -41,8 +37,8 @@ export const PatientsModule: React.FC = () => {
     phone: '+63 917 555 1234',
     email: '',
     address: 'Cebu City, Philippines',
-    bloodType: 'O+',
-    allergies: [{ allergen: 'Penicillin', severity: 'High' as const }],
+    bloodType: 'O+' as BloodType,
+    allergies: [{ id: 'all-1', allergen: 'Penicillin', severity: 'severe' as const, reaction: 'Rash / Anaphylaxis' }],
     chronicConditions: ['Hypertension'],
   });
 
@@ -62,7 +58,8 @@ export const PatientsModule: React.FC = () => {
     }
     const created = addPatient({
       ...newPatientForm,
-      allergies: newPatientForm.allergies.map(a => ({ ...a, severity: 'High' as const }))
+      status: 'active',
+      emergencyContact: { name: 'Emergency Contact', relationship: 'Family', phone: newPatientForm.phone }
     });
     setIsNewPatientOpen(false);
     setActivePatientId(created.id);
@@ -257,7 +254,7 @@ export const PatientsModule: React.FC = () => {
               <select
                 className="w-full h-9 rounded-full border border-slate-200 bg-white px-3 text-xs text-slate-900"
                 value={newPatientForm.bloodType}
-                onChange={e => setNewPatientForm({ ...newPatientForm, bloodType: e.target.value })}
+                onChange={e => setNewPatientForm({ ...newPatientForm, bloodType: e.target.value as BloodType })}
               >
                 <option value="O+">O Positive (O+)</option>
                 <option value="A+">A Positive (A+)</option>
