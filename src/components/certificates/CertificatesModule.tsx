@@ -83,8 +83,8 @@ export const CertificatesModule: React.FC = () => {
           <div className="lg:col-span-4 space-y-4 animate-in fade-in slide-in-from-left-2 duration-150">
             <Card>
               <CardHeader>
-                <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-900 flex items-center gap-2">
-                  <Edit3 className="h-4 w-4 text-[#4454c3]" /> Edit Certificate Content
+                <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-900">
+                  Edit Certificate Content
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3 text-xs">
