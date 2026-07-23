@@ -45,7 +45,7 @@ export const Dialog: React.FC<DialogProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-2xs p-4 animate-in fade-in duration-150 select-none">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-2xs p-3 sm:p-4 animate-in fade-in duration-150 select-none">
       <div
         className="fixed inset-0"
         onClick={onClose}
@@ -53,20 +53,20 @@ export const Dialog: React.FC<DialogProps> = ({
       />
       <div
         className={cn(
-          'relative w-full bg-white rounded-xl border border-slate-200/90 shadow-lg z-10 flex flex-col max-h-[90vh] overflow-hidden animate-in zoom-in-95 duration-150',
+          'relative w-full max-w-[calc(100vw-1.5rem)] bg-white rounded-xl border border-slate-200/90 shadow-lg z-10 flex flex-col max-h-[90vh] overflow-hidden animate-in zoom-in-95 duration-150',
           widthClasses[maxWidth]
         )}
         role="dialog"
         aria-modal="true"
       >
         <div className="flex items-start justify-between p-4 sm:p-5 border-b border-slate-100 bg-slate-50/40">
-          <div className="space-y-0.5">
-            <h2 className="text-sm font-bold text-slate-900 tracking-tight">{title}</h2>
-            {description && <p className="text-xs text-slate-500">{description}</p>}
+          <div className="space-y-0.5 min-w-0 pr-2">
+            <h2 className="text-sm font-bold text-slate-900 tracking-tight truncate">{title}</h2>
+            {description && <p className="text-xs text-slate-500 line-clamp-2">{description}</p>}
           </div>
           <button
             onClick={onClose}
-            className="p-1 rounded-md text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer shrink-0 ml-4"
+            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer shrink-0 ml-2"
           >
             <X className="h-4 w-4" />
           </button>

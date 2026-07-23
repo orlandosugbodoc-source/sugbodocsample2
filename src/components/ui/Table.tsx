@@ -2,8 +2,8 @@ import React from 'react';
 import { cn } from '../../utils/cn';
 
 export const Table: React.FC<React.TableHTMLAttributes<HTMLTableElement>> = ({ className, children, ...props }) => (
-  <div className="relative w-full overflow-auto border border-slate-200 rounded-lg bg-white shadow-2xs">
-    <table className={cn('w-full caption-bottom text-xs border-collapse', className)} {...props}>
+  <div className="relative w-full overflow-x-auto border border-slate-200 rounded-lg bg-white shadow-2xs min-w-0">
+    <table className={cn('w-full caption-bottom text-xs border-collapse min-w-[600px] sm:min-w-full', className)} {...props}>
       {children}
     </table>
   </div>
