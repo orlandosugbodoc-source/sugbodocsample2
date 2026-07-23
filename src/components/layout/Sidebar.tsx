@@ -20,8 +20,6 @@ import {
 import { useEMR, roleAllowedModules } from '../../context/EMRContext';
 import { cn } from '../../utils/cn';
 import { Avatar } from '../ui/Avatar';
-import { Button } from '../ui/Button';
-import { Dialog } from '../ui/Dialog';
 import { PesoReceiptIcon } from '../ui/PesoIcon';
 
 interface SidebarProps {
@@ -199,32 +197,38 @@ export const Sidebar: React.FC<SidebarProps> = ({
         )}
       </aside>
 
-      {/* Sign Out Confirmation Modal */}
-      <Dialog
-        isOpen={isLogoutModalOpen}
-        onClose={() => setIsLogoutModalOpen(false)}
-        title="Sign Out"
-        description="Do you want to continue to sign out for now?"
-        maxWidth="sm"
-      >
-        <div className="flex justify-end gap-2 pt-4 border-t border-slate-100">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setIsLogoutModalOpen(false)}
-          >
-            Cancel
-          </Button>
-          <Button
-            variant="destructive"
-            size="sm"
-            icon={<LogOut className="h-3.5 w-3.5" />}
-            onClick={handleConfirmLogout}
-          >
-            Sign Out
-          </Button>
+      {/* Clean, Non-Vibe-Coded Professional Sign Out Modal */}
+      {isLogoutModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-2xs p-4 animate-in fade-in duration-150 select-none">
+          <div 
+            className="fixed inset-0" 
+            onClick={() => setIsLogoutModalOpen(false)} 
+          />
+          <div className="relative w-full max-w-xs bg-white rounded-xl border border-slate-200/90 shadow-lg p-5 z-10 space-y-4 animate-in zoom-in-95 duration-150">
+            <div className="space-y-1">
+              <h3 className="text-sm font-bold text-slate-900 tracking-tight">Sign out of SugboDoc?</h3>
+              <p className="text-xs text-slate-500">Do you want to continue to sign out for now?</p>
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+              <button
+                type="button"
+                onClick={() => setIsLogoutModalOpen(false)}
+                className="px-3.5 py-1.5 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleConfirmLogout}
+                className="px-3.5 py-1.5 text-xs font-semibold text-white bg-[#4454c3] hover:bg-[#3745a5] rounded-lg transition-colors cursor-pointer shadow-2xs"
+              >
+                Sign Out
+              </button>
+            </div>
+          </div>
         </div>
-      </Dialog>
+      )}
     </>
   );
 };
