@@ -96,7 +96,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </div>
           )}
 
-          {/* Minimized / Collapsed Brand Header: Strictly Stethoscope "S" Mark ONLY */}
+          {/* Minimized / Collapsed Brand Header: Strictly Stethoscope "S" Mark ONLY (17px tight crop) */}
           {isCollapsed && !isMobileOpen && (
             <div 
               className="h-8 w-8 mx-auto flex items-center justify-center shrink-0 cursor-pointer overflow-hidden rounded-md hover:bg-slate-100 transition-colors" 
@@ -104,7 +104,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               title="Expand Sidebar"
             >
               {!logoError ? (
-                <div className="h-7 w-[21px] overflow-hidden flex items-center justify-start relative shrink-0">
+                <div className="h-7 w-[17px] overflow-hidden flex items-center justify-start relative shrink-0">
                   <img 
                     src="https://sugbodoc.com/public/assets/images/brand/logo.png" 
                     alt="SugboDoc Brand Mark" 
