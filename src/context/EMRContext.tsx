@@ -26,6 +26,11 @@ import {
 } from '../mock/initialData';
 
 interface EMRContextType {
+  // Authentication & Session
+  isAuthenticated: boolean;
+  login: (role?: UserRole) => void;
+  logout: () => void;
+
   // Current user & Role Management
   currentUser: User;
   setCurrentUserRole: (role: UserRole) => void;
@@ -95,6 +100,7 @@ export const roleAllowedModules: Record<UserRole, string[]> = {
 };
 
 export const EMRProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<User>(MOCK_CURRENT_USER);
   const [staffList] = useState<User[]>(MOCK_STAFF);
   const [activeModule, setActiveModule] = useState<string>('dashboard');
@@ -117,6 +123,28 @@ export const EMRProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const showToast = (message: string, type: 'success' | 'info' | 'warning' | 'error' = 'info') => {
     setToast({ message, type });
     setTimeout(() => setToast(null), 3500);
+  };
+
+  const login = (role: UserRole = 'doctor') => {
+    const matchingStaff = staffList.find(s => s.role === role) || {
+      ...currentUser,
+      role: role,
+      title: `${role.toUpperCase()} User`,
+    };
+    setCurrentUser(matchingStaff);
+    setIsAuthenticated(true);
+
+    const allowed = roleAllowedModules[role] || roleAllowedModules.admin;
+    if (!allowed.includes(activeModule)) {
+      setActiveModule('dashboard');
+    }
+
+    showToast(`Signed in as ${matchingStaff.name} (${role.toUpperCase()})`, 'success');
+  };
+
+  const logout = () => {
+    setIsAuthenticated(false);
+    showToast('Signed out of SugboDoc EMR', 'info');
   };
 
   const setCurrentUserRole = (role: UserRole) => {
@@ -456,6 +484,9 @@ export const EMRProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   return (
     <EMRContext.Provider value={{
+      isAuthenticated,
+      login,
+      logout,
       currentUser,
       setCurrentUserRole,
       staffList,

@@ -14,6 +14,7 @@ import {
   Settings,
   ChevronLeft,
   ChevronRight,
+  LogOut,
   X
 } from 'lucide-react';
 import { useEMR, roleAllowedModules } from '../../context/EMRContext';
@@ -34,7 +35,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   isMobileOpen, 
   closeMobile 
 }) => {
-  const { activeModule, setActiveModule, currentUser } = useEMR();
+  const { activeModule, setActiveModule, currentUser, logout } = useEMR();
   const [logoError, setLogoError] = useState(false);
 
   const allNavigationItems = [
@@ -169,16 +170,23 @@ export const Sidebar: React.FC<SidebarProps> = ({
           })}
         </nav>
 
-        {/* Active User Footer Card */}
+        {/* Active User Footer Card with Sign Out Button */}
         {(!isCollapsed || isMobileOpen) && (
-          <div className="p-3 border-t border-slate-200 bg-slate-50/50">
-            <div className="flex items-center gap-2.5">
+          <div className="p-3 border-t border-slate-200 bg-slate-50/50 flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2.5 min-w-0">
               <Avatar src={currentUser.avatar} name={currentUser.name} size="sm" />
               <div className="min-w-0 flex-1">
                 <div className="text-xs font-semibold text-slate-900 truncate">{currentUser.name}</div>
                 <div className="text-[10px] text-slate-500 capitalize truncate">{currentUser.title}</div>
               </div>
             </div>
+            <button
+              onClick={logout}
+              className="p-1.5 rounded-full text-slate-400 hover:bg-slate-200/60 hover:text-slate-700 transition-colors cursor-pointer shrink-0"
+              title="Sign Out to Demo Login Screen"
+            >
+              <LogOut className="h-4 w-4" />
+            </button>
           </div>
         )}
       </aside>

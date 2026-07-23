@@ -4,6 +4,7 @@ import { Sidebar } from './components/layout/Sidebar';
 import { Header } from './components/layout/Header';
 import { Toast } from './components/ui/Toast';
 import { CommandPalette } from './components/ui/CommandPalette';
+import { LoginScreen } from './components/auth/LoginScreen';
 
 // Modules
 import { DashboardModule } from './components/dashboard/DashboardModule';
@@ -94,10 +95,25 @@ const MainLayout: React.FC = () => {
   );
 };
 
+const AppContent: React.FC = () => {
+  const { isAuthenticated, toast } = useEMR();
+
+  if (!isAuthenticated) {
+    return (
+      <>
+        <LoginScreen />
+        {toast && <Toast message={toast.message} type={toast.type} />}
+      </>
+    );
+  }
+
+  return <MainLayout />;
+};
+
 export function App() {
   return (
     <EMRProvider>
-      <MainLayout />
+      <AppContent />
     </EMRProvider>
   );
 }
