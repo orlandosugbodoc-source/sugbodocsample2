@@ -47,31 +47,31 @@ export const CertificatesModule: React.FC = () => {
       {/* Authentic Printable Document Container */}
       <div className="max-w-2xl mx-auto bg-white border border-slate-300 rounded-sm p-8 sm:p-12 shadow-sm text-slate-900 font-serif leading-relaxed select-none">
         
-        {/* Clinic Official Header */}
-        <div className="flex items-center justify-between border-b-2 border-slate-900 pb-4 mb-6">
-          <div className="flex items-center gap-4">
+        {/* Clinic Official Header with No-Wrap Doc No */}
+        <div className="flex items-start justify-between border-b-2 border-slate-900 pb-4 mb-6 gap-4">
+          <div className="flex items-center gap-3.5 min-w-0">
             {!logoError ? (
               <img 
                 src="https://sugbodoc.com/public/assets/images/brand/logo.png" 
                 alt="SugboDoc Brand" 
                 onError={() => setLogoError(true)}
-                className="h-12 w-auto object-contain" 
+                className="h-11 sm:h-12 w-auto object-contain shrink-0" 
               />
             ) : (
-              <div className="h-10 w-10 bg-[#4454c3] text-white flex items-center justify-center font-sans font-bold text-xl rounded">
+              <div className="h-10 w-10 bg-[#4454c3] text-white flex items-center justify-center font-sans font-bold text-xl rounded shrink-0">
                 S
               </div>
             )}
-            <div>
-              <h2 className="font-bold text-sm uppercase tracking-wider text-slate-900 font-sans">SUGBODOC HEALTHCARE CLINIC</h2>
+            <div className="min-w-0">
+              <h2 className="font-bold text-sm uppercase tracking-wider text-slate-900 font-sans truncate">SUGBODOC HEALTHCARE CLINIC</h2>
               <p className="text-[11px] text-slate-600 font-sans">142 General Maxilom Ave (Mango Ave), Cebu City, 6000 Philippines</p>
               <p className="text-[10px] text-slate-500 font-mono font-sans">Tel: (032) 412-9000 • Email: contact@sugbodoc.com</p>
             </div>
           </div>
 
-          <div className="text-right font-sans text-[11px]">
-            <div className="font-mono text-slate-500">Doc No: <strong className="text-slate-900">MC-2026-0842</strong></div>
-            <div className="text-slate-600 mt-1">Date: <strong>{currentDateFormatted}</strong></div>
+          <div className="text-right font-sans text-[11px] shrink-0 whitespace-nowrap">
+            <div className="font-mono text-slate-600">Doc No: <strong className="text-slate-900 font-bold">MC-2026-0842</strong></div>
+            <div className="text-slate-600 mt-1">Date: <strong className="text-slate-900 font-bold">{currentDateFormatted}</strong></div>
           </div>
         </div>
 
