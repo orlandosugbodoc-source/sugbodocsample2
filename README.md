@@ -1,126 +1,112 @@
-# SugboDoc Sample - Electronic Medical Record System
+# SugboDoc Sample 2 — Outpatient Electronic Medical Record (EMR)
 
-A modern, production-grade frontend system for the **SugboDoc Electronic Medical Record (EMR)** and Outpatient Clinic Management platform, engineered for Philippine healthcare workflows.
+Welcome to **SugboDoc Sample 2**, a modern, web-based Electronic Medical Record (EMR) and Outpatient Clinic Management System built specifically for Philippine clinic workflows.
 
-Developed by **Orlando Fornolles Jr.** — Software Developer Intern at **SugboDoc Technologies Inc.** & 3rd-Year BS Information Technology Student at **Southwestern University PHINMA**, built with **Google Antigravity AI**.
-
----
-
-## Task Update & Changelog
-
-### July 23, 2026 — Enterprise Refinements, Real-Time Editing & Hand-Crafted Design System
-
-- **Website Title Alignment**: Set official site title to `SugboDoc Sample` in `index.html` and header breadcrumb navigation.
-- **State Synchronization & Deep Bug Audit**: Fixed `setActivePatientId(id)` in `EMRContext.tsx` to maintain 100% active patient & encounter synchronization across all modules, preventing clinical notes from mapping to incorrect patient records.
-- **Smooth View Transitions & Scroll Restoration**: Integrated dynamic key transitions (`animate-in fade-in slide-in-from-bottom-1 duration-150 ease-out`) in `App.tsx` and automated top scroll restoration (`scrollTo({ top: 0 })`) upon module switches.
-- **Official Stethoscope "S" Emblem**: Rendered the official SugboDoc stethoscope "S" emblem in collapsed sidebar mode with exact 17px cropping to isolate the mark cleanly.
-- **Dynamic Role-Based Access Control (RBAC)**: Exported `roleAllowedModules` in `EMRContext.tsx` to dynamically filter sidebar navigation links for 6 user personas (`doctor`, `receptionist`, `nurse`, `lab_staff`, `cashier`, `admin`).
-- **Minimalist Login & Sign Out Modal**: Implemented a centered Demo Login Screen with top SugboDoc logo placement, alongside a clean Sign Out confirmation modal.
-- **Hand-Crafted Enterprise Design System Overhaul**:
-  - Stripped background tint fills (`bg-blue-50`, `bg-rose-50`, `bg-slate-100`) from pills, tags, badges, and patient headers in favor of crisp flat white containers (`bg-white`) with 1px outline borders.
-  - Replaced raw browser webkit date picker icons (`📅`) with custom right-aligned Lucide `<Calendar />` icons across date inputs.
-  - Standardized component geometry to clean, modern `rounded-lg` borders and 2px focus rings (`#4454c3`).
-- **International Medical Certificate & Live Editor**:
-  - Redesigned `CertificatesModule.tsx` to follow international healthcare document standards (clean letterhead, clinical ICD-10 diagnosis section, and signature block).
-  - Added an **interactive real-time editor** with an adjustable **Certificate Issue Date** picker and automated fit-to-work clearance date recalculation.
-  - Updated the physician signature area placeholder (`Signature over Printed Name`).
-- **Mobile Responsiveness Enforcement**: Enforced touch-scrollable data tables (`min-w-[600px] overflow-x-auto`) and viewport-constrained modal cards (`max-w-[calc(100vw-1.5rem)]`).
-
-### July 22, 2026 — Design System, UI Polish, and Accessibility Enhancements
-
-- **Official SugboDoc Branding**: Integrated official SugboDoc logo and updated color system to **SugboDoc Royal Indigo (`#4454c3`)** and periwinkle subtles (`#eef2ff`).
-- **Eye-Comfort Light Theme**: Implemented an eye-protection light mode using a warm off-white canvas (`#f4f6f9`), soft charcoal text (`#1e293b`), and pastel alert badges to reduce monitor glare.
-- **60-30-10 Color Architecture**: Enforced 60% canvas background, 30% structural slate typography/borders, and 10% focal indigo accents.
-- **Pill-Shaped Design System**: Standardized all buttons, search triggers, role selectors, and tab controls to uniform pill-shaped boundaries (`rounded-full`).
-- **Profile Photo Avatars**: Built `<Avatar />` component with automatic uppercase name initials fallback (`JD`, `SA`, `MS`) for missing image URLs.
-- **Philippine Peso Localization**: Designed custom Philippine Peso (`₱`) SVG icon and Peso Receipt icon (`<PesoReceiptIcon />`) replacing generic dollar signs.
-- **Critical Layout & Component Fixes**:
-  - **Queue Ticket Badges**: Converted fixed 48px circles into auto-expanding pill containers (`px-4 py-2 rounded-full font-mono`) to prevent number clipping.
-  - **Command Palette Focus Ring**: Eliminated blue box outlines around search inputs in modal headers.
-  - **Patient Context Bar**: Restructured Consultation Hub patient header into a clean 2-row layout with inline demographic badges and a dedicated Chief Complaint block.
-  - **Toast Notifications**: Applied solid 100% opaque dark slate background (`bg-slate-900 text-white shadow-2xl z-50`) to eliminate text bleed-through.
-- **Responsive Mobile Drawer**: Verified mobile drawer navigation (`-translate-x-full md:translate-x-0`) with slide-in hamburger menu toggle and backdrop blur overlay.
+Hi! I'm **Orlando Fornolles Jr.**, a 3rd-Year BSIT Student at Southwestern University PHINMA and a Software Developer Intern at **SugboDoc Technologies Inc.**. I built this system using **React, TypeScript, Tailwind CSS**, and paired with **Google Antigravity AI** to craft a smooth, responsive, and reliable clinical workbench for healthcare professionals.
 
 ---
 
-## Key Clinical Workflows & Modules
+## 🌟 About The Project
 
-- **Dashboard Overview**: Summary clinical metrics, real-time outpatient queue status, scheduled appointments, quick actions, and on-duty staff roster.
-- **Patient Registry & Master Index**: Master patient index (MPI) search by MRN, name, or phone number, featuring demographic profiles, HMO insurance details, severe allergy alerts, and profile avatars with name initials fallback.
-- **OPD Waiting Queue & Caller**: Real-time sequential queue caller ticket system supporting walk-in check-in, triage categories (Regular, Senior/PWD Priority, Urgent), and status tracking.
-- **Doctor Consultation Workbench**: 3-pane clinical interface providing:
-  - Patient context, vitals recording, and BMI calculation.
-  - 4-quadrant SOAP clinical documentation (Subjective, Objective, Assessment, Plan).
-  - ICD-10 diagnostic coding search and list management.
-  - Electronic prescriber (Rx) workbench.
-  - Official medical certificate generator.
-- **Laboratory Orders**: Diagnostic request tracking and lab result publishing workflow.
-- **Billing & Cashier**: Itemized invoicing, discount/HMO deduction breakdown, payment collection modal (Cash, Card, PhilHealth/HMO, e-Wallet), and BIR-compliant printable receipt viewer.
-- **Reports & Clinical Census**: Daily outpatient census stats, top diagnostic codes, and clinic revenue tracking.
-- **System Admin & Settings**: Clinic master data configuration, staff role assignment, and facility details.
+In busy Philippine outpatient clinics, doctors, nurses, and administrative staff need a fast, intuitive tool to manage patient records, track daily queues, conduct consultations, and issue official documents without clutter or unnecessary delays. 
+
+SugboDoc Sample 2 was designed to streamline these daily clinic operations into a clean, unified single-page application.
 
 ---
 
-## Technology Stack & Development Tools
+## 🚀 Key Features & Clinical Modules
 
-- **Core Framework**: React 19, TypeScript 5, Vite 6
+- **📊 Dashboard Overview**: Real-time snapshot of daily outpatient traffic, appointment schedules, queue status, and active clinical staff.
+- **📁 Patient Registry (MPI)**: Centralized master patient index with MRN search, allergy alerts, demographic profiles, and initial-fallback profile avatars.
+- **⏳ Live OPD Queue & Caller**: Sequential ticket caller for walk-ins and appointments, categorized by triage priority (Regular, Senior/PWD, Urgent).
+- **🩺 Doctor Consultation Workbench**:
+  - Patient context bar with vital signs recording and automatic BMI calculation.
+  - 4-quadrant **SOAP Notes** (Subjective, Objective, Assessment, Plan).
+  - Searchable **ICD-10** diagnostic coding list.
+  - Electronic prescription (Rx) writer.
+- **📄 Medical Certificates & Document Generator**:
+  - Built to international healthcare standards with clinic letterhead, diagnostic details, and official physician signature block.
+  - Features a **live interactive editor** with a date picker for custom certificate issue dates and automated fit-to-work clearance date calculations.
+- **🧪 Laboratory Orders**: Diagnostic test requests and result publishing workflow.
+- **💳 Billing & Cashier**: Itemized invoicing, HMO/PhilHealth deductions, multiple payment methods (Cash, Card, e-Wallet), and BIR-compliant receipt view with custom Philippine Peso (`₱`) formatting.
+- **🔒 Dynamic Role-Based Access (RBAC)**: Tailored navigation and feature access for 6 distinct personas: Doctor, Receptionist, Nurse, Lab Staff, Cashier, and Admin.
+
+---
+
+## 📅 Latest Updates & Improvements
+
+### July 23, 2026
+
+- **Brand & Title Realignment**: Set official application title to **SugboDoc Sample** in the browser tab and header navigation.
+- **Company Entity Update**: Standardized company ownership references to **SugboDoc Technologies Inc.** across the project.
+- **Reliable Patient State Sync**: Fixed active patient state handling to guarantee that consultation notes, SOAP records, and prescriptions always map to the correct patient chart.
+- **Smooth View Transitions & Navigation**: Added subtle ease-out page transitions and automatic top scroll restoration whenever switching between modules.
+- **Official Stethoscope "S" Logo Mark**: Configured the collapsed sidebar to display a clean, tightly cropped 17px emblem of the official SugboDoc stethoscope "S" logo.
+- **Clean Flat Design Refinements**:
+  - Removed heavy background tint fills from patient badges, allergy tags, and queue pills in favor of flat white containers (`bg-white`) with crisp 1px borders.
+  - Replaced raw browser date picker icons with custom right-aligned Lucide calendar icons.
+- **Interactive Medical Certificate Builder**:
+  - Redesigned the medical certificate layout to follow clean international standards.
+  - Added an interactive real-time editor allowing physicians to adjust the certificate issue date, rest days, diagnosis text, and signature details before printing.
+- **Mobile Responsiveness**: Ensured data tables support smooth touch horizontal scrolling and modal dialogs fit within mobile screen bounds.
+
+### July 22, 2026
+
+- Integrated official SugboDoc Indigo (`#4454c3`) color palette.
+- Added eye-comfort light theme with warm off-white canvas (`#f4f6f9`) to reduce glare during long clinic hours.
+- Built profile photo avatars with initials fallback.
+- Added custom Philippine Peso (`₱`) currency formatting.
+
+---
+
+## 🛠️ Technology Stack
+
+- **Frontend**: React 19, TypeScript 5, Vite 6
 - **Styling**: Tailwind CSS v4, Vanilla CSS Design System Tokens
-- **Icons**: Lucide React, Custom Philippine Peso SVG Icons
-- **AI Pair Programmer & Coding Assistant**: Google Antigravity AI
-- **Utilities**: Class Variance Authority / clsx / tailwind-merge, date-fns
+- **Icons**: Lucide React Icons & Custom Philippine Peso SVG
+- **AI Pair Programmer**: Google Antigravity AI
+- **Utilities**: clsx, tailwind-merge, date-fns
 
 ---
 
-## Design System & 60-30-10 Color Architecture
+## 💻 Local Setup & Running Locally
 
-- **60% Dominant Canvas**: Soft off-white slate background (`#f4f6f9`) and crisp white card containers (`#ffffff`) designed for eye protection and monitor glare reduction.
-- **30% Secondary Structure**: Deep charcoal typography (`#1e293b`), muted text (`#64748b`), and crisp 1px borders (`#e2e8f0`).
-- **10% Focal Accent**: Official SugboDoc Royal Indigo (`#4454c3`) reserved for primary action buttons, active navigation pills, and focal highlights.
-- **Clean Flat Badges**: Flat white background containers (`bg-white`) with thin 1px outline borders (`border-slate-200`) replacing soft background tint fills.
-
----
-
-## Local Development & Setup
-
-### Prerequisites
-
-- Node.js (v18+ recommended)
-- npm or pnpm
-
-### Installation
+Setting up the project on your computer takes just a few steps:
 
 ```bash
-# Clone the repository and navigate to project directory
+# 1. Clone the repository
+git clone https://github.com/orlandosugbodoc-source/sugbodocsample2.git
+
+# 2. Navigate to project directory
 cd sugbodocsample2
 
-# Install dependencies
+# 3. Install dependencies
 npm install
 
-# Start local development server
+# 4. Start the local development server
 npm run dev
 ```
 
-The application will be available at `http://localhost:5174/`.
+Open your browser and navigate to `http://localhost:5174/` to test the application.
 
-### Production Build
+### Building for Production
+
+To test or generate a production build:
 
 ```bash
-# Type check and build production bundle
 npm run build
-
-# Preview production build locally
 npm run preview
 ```
 
 ---
 
-## Keyboard Shortcuts
+## ⌨️ Useful Keyboard Shortcuts
 
-- `Ctrl + K` or `Cmd + K`: Open Global Command Palette to search patients or switch modules.
-- `ESC`: Close active modal dialog or command palette.
+- `Ctrl + K` (or `Cmd + K`): Open the Global Command Palette to search patients or navigate to any module instantly.
+- `ESC`: Close active modal dialogs, drawers, or search popups.
 
 ---
 
-## License & Ownership
+## 📄 License & Ownership
 
 Copyright © 2026 **SugboDoc Technologies Inc.**. All Rights Reserved.
