@@ -84,8 +84,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 />
               ) : (
                 <div className="flex items-center gap-2">
-                  <div className="h-7 w-7 rounded-full bg-[#4454c3] flex items-center justify-center text-white shadow-2xs shrink-0">
-                    <Activity className="h-4 w-4" />
+                  <div className="h-7 w-7 rounded-full bg-[#4454c3] flex items-center justify-center text-white shadow-2xs shrink-0 font-bold text-sm font-sans">
+                    S
                   </div>
                   <div>
                     <span className="font-bold text-sm tracking-tight text-slate-900">SUGBODOC</span>
@@ -95,9 +95,29 @@ export const Sidebar: React.FC<SidebarProps> = ({
               )}
             </div>
           )}
+
+          {/* Minimized / Collapsed Brand Header: Official SugboDoc Stethoscope "S" Mark */}
           {isCollapsed && !isMobileOpen && (
-            <div className="h-7 w-7 mx-auto rounded-full bg-[#4454c3] flex items-center justify-center text-white shadow-2xs shrink-0">
-              <Activity className="h-4 w-4" />
+            <div 
+              className="h-8 w-8 mx-auto flex items-center justify-center shrink-0 cursor-pointer overflow-hidden rounded-md hover:bg-slate-100 transition-colors" 
+              onClick={toggleCollapse}
+              title="Expand Sidebar"
+            >
+              {!logoError ? (
+                <div className="h-7 w-7 overflow-hidden flex items-center justify-start relative">
+                  <img 
+                    src="https://sugbodoc.com/public/assets/images/brand/logo.png" 
+                    alt="SugboDoc Brand Mark" 
+                    onError={() => setLogoError(true)}
+                    className="h-7 max-w-none object-contain object-left shrink-0" 
+                    style={{ width: '85px' }}
+                  />
+                </div>
+              ) : (
+                <div className="h-7 w-7 rounded-full bg-[#4454c3] flex items-center justify-center text-white font-bold text-xs font-sans shadow-2xs">
+                  S
+                </div>
+              )}
             </div>
           )}
 
