@@ -1,4 +1,4 @@
-# SugboDoc EMR - Electronic Medical Record System
+# SugboDoc Sample - Electronic Medical Record System
 
 A modern, production-grade frontend system for the **SugboDoc Electronic Medical Record (EMR)** and Outpatient Clinic Management platform, engineered for Philippine healthcare workflows.
 
@@ -7,6 +7,24 @@ Developed by **Orlando Fornolles Jr.** — Software Developer Intern at **SugboD
 ---
 
 ## Task Update & Changelog
+
+### July 23, 2026 — Enterprise Refinements, Real-Time Editing & Non-Vibe-Coded Design System
+
+- **Website Title Alignment**: Set official site title to `SugboDoc Sample` in `index.html` and header breadcrumb navigation.
+- **State Synchronization & Deep Bug Audit**: Fixed `setActivePatientId(id)` in `EMRContext.tsx` to maintain 100% active patient & encounter synchronization across all modules, preventing clinical notes from mapping to incorrect patient records.
+- **Smooth View Transitions & Scroll Restoration**: Integrated dynamic key transitions (`animate-in fade-in slide-in-from-bottom-1 duration-150 ease-out`) in `App.tsx` and automated top scroll restoration (`scrollTo({ top: 0 })`) upon module switches.
+- **Official Stethoscope "S" Emblem**: Rendered the official SugboDoc stethoscope "S" emblem in collapsed sidebar mode with exact 17px cropping to isolate the mark cleanly.
+- **Dynamic Role-Based Access Control (RBAC)**: Exported `roleAllowedModules` in `EMRContext.tsx` to dynamically filter sidebar navigation links for 6 user personas (`doctor`, `receptionist`, `nurse`, `lab_staff`, `cashier`, `admin`).
+- **Minimalist Login & Sign Out Modal**: Implemented a centered Demo Login Screen with top SugboDoc logo placement, alongside a clean, non-vibe-coded Sign Out confirmation modal.
+- **Non-Vibe-Coded Design System Overhaul**:
+  - Stripped background tint fills (`bg-blue-50`, `bg-rose-50`, `bg-slate-100`) from pills, tags, badges, and patient headers in favor of crisp flat white containers (`bg-white`) with 1px outline borders.
+  - Replaced raw browser webkit date picker icons (`📅`) with custom right-aligned Lucide `<Calendar />` icons across date inputs.
+  - Standardized component geometry to clean, modern `rounded-lg` borders and 2px focus rings (`#4454c3`).
+- **International Medical Certificate & Live Editor**:
+  - Redesigned `CertificatesModule.tsx` to follow international healthcare document standards (clean letterhead, clinical ICD-10 diagnosis section, and signature block).
+  - Added an **interactive real-time editor** with an adjustable **Certificate Issue Date** picker and automated fit-to-work clearance date recalculation.
+  - Updated the physician signature area placeholder (`Signature over Printed Name`).
+- **Mobile Responsiveness Enforcement**: Enforced touch-scrollable data tables (`min-w-[600px] overflow-x-auto`) and viewport-constrained modal cards (`max-w-[calc(100vw-1.5rem)]`).
 
 ### July 22, 2026 — Design System, UI Polish, and Accessibility Enhancements
 
@@ -58,7 +76,7 @@ Developed by **Orlando Fornolles Jr.** — Software Developer Intern at **SugboD
 - **60% Dominant Canvas**: Soft off-white slate background (`#f4f6f9`) and crisp white card containers (`#ffffff`) designed for eye protection and monitor glare reduction.
 - **30% Secondary Structure**: Deep charcoal typography (`#1e293b`), muted text (`#64748b`), and crisp 1px borders (`#e2e8f0`).
 - **10% Focal Accent**: Official SugboDoc Royal Indigo (`#4454c3`) reserved for primary action buttons, active navigation pills, and focal highlights.
-- **Alert Badges**: Pastel fills for clinical safety (`bg-rose-50` for allergies/unpaid, `bg-emerald-50` for completed/paid, `bg-sky-50` for info, `bg-amber-50` for warnings).
+- **Clean Flat Badges**: Flat white background containers (`bg-white`) with thin 1px outline borders (`border-slate-200`) replacing soft background tint fills.
 
 ---
 
