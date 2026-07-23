@@ -63,6 +63,18 @@
     outline: none !important;
     box-shadow: none !important;
   }
+
+  /* Clean Date Picker Indicator Alignment */
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    margin-left: auto;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.15s ease;
+  }
+
+  input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+  }
 }
 
 /* Custom scrollbars */
