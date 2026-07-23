@@ -2,7 +2,7 @@
 
 A modern, production-grade frontend application for the **SugboDoc Electronic Medical Record (EMR)** and Outpatient Clinic Management platform, designed specifically for Philippine healthcare workflows.
 
-Developed by **Orlando Fornolles Jr.** — Software Developer Intern at **SugboDoc Technologies Inc.** & 3rd-Year BS Information Technology Student at **Southwestern University PHINMA**, built with **Google Antigravity AI**.
+Created by **Orlando Fornolles Jr.** — Software Developer Intern at **SugboDoc Technologies Inc.** and 3rd-Year BSIT Student at Southwestern University PHINMA, paired with **Google Antigravity AI**.
 
 ---
 
